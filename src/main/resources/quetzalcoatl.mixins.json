@@ -5,7 +5,7 @@
   "mixins": [
   ],
   "client": [
-    "BeaconHookMixin"
+    "SpiderSlownessHack"
   ],
   "injectors": {
     "defaultRequire": 1

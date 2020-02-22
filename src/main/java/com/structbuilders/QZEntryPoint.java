@@ -1,10 +1,16 @@
 package com.structbuilders;
 
+import com.structbuilders.block.ModBlocks;
 import com.structbuilders.dim.Dimensions;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -24,6 +30,16 @@ public class QZEntryPoint implements ModInitializer {
     // fire => fire resistance
     // earth => haste
 
+    // each plane also has ambient passive mobs and (at night) hostile mobs:
+    // air: passive cave spider, scorpion (crawl) hostile (drops enchanted spider eye: eat to get immunity to poison and regen)
+    // Scorpion:
+    // melee attack, spawns toxic webs wherever it walks
+    // can move through webs like a spider
+    // toxic webs inflict poison
+    // fire: passive blaze, demon lord (crawl) hostile
+    // water: passive guardian, mind squid (crawl) hostile
+    // earth: passive skeleton, necromancer (crawl) hostile
+
 
     @Override
     public void onInitialize() {
@@ -34,6 +50,13 @@ public class QZEntryPoint implements ModInitializer {
         }
 
         Dimensions.register();
+        registerBlocks();
+    }
+
+    // Registers blocks and block items
+    private void registerBlocks() {
+        Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "toxic_cobweb"), ModBlocks.TOXIC_COBWEB);
+        Registry.register(Registry.ITEM, new Identifier(MOD_ID, "toxic_cobweb"), new BlockItem(ModBlocks.TOXIC_COBWEB, new Item.Settings().group(ItemGroup.DECORATIONS)));
     }
 
     private void patchBeaconLevels() throws NoSuchFieldException, IllegalAccessException {
