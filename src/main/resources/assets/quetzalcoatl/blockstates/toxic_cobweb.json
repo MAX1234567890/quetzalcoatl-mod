@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "block/toxic_cobweb" }
+        "": { "model": "quetzalcoatl:block/toxic_cobweb" }
     }
 }

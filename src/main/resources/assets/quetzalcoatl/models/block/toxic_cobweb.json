@@ -1,6 +1,6 @@
 {
     "parent": "block/cross",
     "textures": {
-        "cross": "block/toxic_cobweb"
+        "cross": "quetzalcoatl:block/toxic_cobweb"
     }
 }

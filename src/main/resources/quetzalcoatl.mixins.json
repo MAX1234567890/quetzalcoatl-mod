@@ -5,7 +5,9 @@
   "mixins": [
   ],
   "client": [
-    "SpiderSlownessHack"
+    "SpiderSlownessHack",
+    "BlazeAIHack",
+    "SkeletonAIHack"
   ],
   "injectors": {
     "defaultRequire": 1

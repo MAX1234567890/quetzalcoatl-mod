@@ -1,9 +1,14 @@
 package com.structbuilders;
 
+import com.structbuilders.biome.ModBiomes;
 import com.structbuilders.block.ModBlocks;
 import com.structbuilders.dim.Dimensions;
+import com.structbuilders.ench.ModEnchantments;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BeaconBlockEntity;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
@@ -50,6 +55,8 @@ public class QZEntryPoint implements ModInitializer {
         }
 
         Dimensions.register();
+        ModBiomes.register();
+        ModEnchantments.register();
         registerBlocks();
     }
 
@@ -57,6 +64,7 @@ public class QZEntryPoint implements ModInitializer {
     private void registerBlocks() {
         Registry.register(Registry.BLOCK, new Identifier(MOD_ID, "toxic_cobweb"), ModBlocks.TOXIC_COBWEB);
         Registry.register(Registry.ITEM, new Identifier(MOD_ID, "toxic_cobweb"), new BlockItem(ModBlocks.TOXIC_COBWEB, new Item.Settings().group(ItemGroup.DECORATIONS)));
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TOXIC_COBWEB, RenderLayer.getCutout());
     }
 
     private void patchBeaconLevels() throws NoSuchFieldException, IllegalAccessException {

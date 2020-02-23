@@ -1,6 +1,7 @@
 package com.structbuilders.dim;
 
 import com.google.common.collect.Sets;
+import com.structbuilders.biome.ModBiomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -9,13 +10,18 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.CheckerboardBiomeSource;
+import net.minecraft.world.biome.source.CheckerboardBiomeSourceConfig;
+import net.minecraft.world.biome.source.VanillaLayeredBiomeSource;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
 import net.minecraft.world.gen.chunk.FloatingIslandsChunkGeneratorConfig;
+import net.minecraft.world.level.LevelProperties;
 
 import javax.annotation.Nullable;
+import javax.security.auth.login.Configuration;
 
 public class ElementalPlanesDimension extends Dimension {
     public ElementalPlanesDimension(World world, DimensionType type) {
@@ -24,26 +30,15 @@ public class ElementalPlanesDimension extends Dimension {
 
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
-        BiomeSource source = new BiomeSource(Sets.newHashSet(Biomes.MUSHROOM_FIELDS, Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.BADLANDS)) {
-            @Override
-            public Biome getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ) {
-                if (biomeX >= 0 && biomeY >= 0) {
-                    // EARTH
-                    return Biomes.MUSHROOM_FIELDS;
-                } else if (biomeX < 0 && biomeY >= 0) {
-                    // WATER
-                    return Biomes.FOREST;
-                } else if (biomeX < 0 && biomeY < 0) {
-                    // AIR
-                    return Biomes.BIRCH_FOREST;
-                } else if (biomeX >= 0 && biomeY < 0) {
-                    // FIRE
-                    return Biomes.BADLANDS;
-                } else {
-                    return null;
-                }
-            }
-        };
+        CheckerboardBiomeSourceConfig conf = new CheckerboardBiomeSourceConfig(world.getLevelProperties());
+        conf.setSize(12);
+        conf.setBiomes(new Biome[]{
+           ModBiomes.FIRE_PLANE,
+           ModBiomes.EARTH_PLANE,
+//           ModBiomes.WATER_PLANE,
+//           ModBiomes.AIR_PLANE,
+        });
+        BiomeSource source = new CheckerboardBiomeSource(conf);
         FloatingIslandsChunkGeneratorConfig config = new FloatingIslandsChunkGeneratorConfig();
         return ChunkGeneratorType.FLOATING_ISLANDS.create(world, source, config);
     }
