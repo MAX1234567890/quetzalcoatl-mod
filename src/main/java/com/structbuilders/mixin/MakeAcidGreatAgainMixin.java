@@ -33,6 +33,8 @@ public class MakeAcidGreatAgainMixin {
             self.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 40, self.world.getDifficulty().getId()));
             if (!self.isUndead())
                 self.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 40, self.world.getDifficulty().getId()));
+            else
+                self.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 40, self.world.getDifficulty().getId()));
         }
     }
 }

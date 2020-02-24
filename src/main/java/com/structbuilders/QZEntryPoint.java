@@ -4,6 +4,7 @@ import com.structbuilders.biome.ModBiomes;
 import com.structbuilders.block.ModBlocks;
 import com.structbuilders.dim.Dimensions;
 import com.structbuilders.ench.ModEnchantments;
+import com.structbuilders.ent.ModEntities;
 import com.structbuilders.fluid.NecromancerAcidFluid;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
@@ -74,6 +75,7 @@ public class QZEntryPoint implements ClientModInitializer, ModInitializer {
         Dimensions.register();
         ModBiomes.register();
         ModEnchantments.register();
+        ModEntities.register();
         registerBlocks();
     }
 
